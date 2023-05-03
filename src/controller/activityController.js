@@ -33,6 +33,7 @@ export async function readActivityListController(req, res) {
             items: response.items,
             qty: response.items.length,
             title: response.title,
+            owner: idUser,
           };
           activitiesList.push(activity);
         }
@@ -56,6 +57,7 @@ export async function readActivityByIdController(req, res) {
           items: responseFind.items,
           qty: responseFind.items.length,
           title: responseFind.title,
+          owner: responseFind.idUser,
         };
         return res.json({ data: activity });
       } else {
