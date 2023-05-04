@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const activityHistorySchema = new mongoose.Schema({
+const trainingHistorySchema = new mongoose.Schema({
   idActivity: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "activity",
@@ -9,9 +9,9 @@ const activityHistorySchema = new mongoose.Schema({
   createdAt: { type: Date, required: true, default: Date.now() },
 });
 
-const ActivityHistoryModel = mongoose.model(
-  "activityHistory",
-  activityHistorySchema
+const TrainingHistoryModel = mongoose.model(
+  "trainingHistory",
+  trainingHistorySchema
 );
 
-export default ActivityHistoryModel;
+export default TrainingHistoryModel;

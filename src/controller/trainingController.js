@@ -1,13 +1,16 @@
-import ActivityModal from "../model/ActivityModel.js";
+import TrainingModel from "../model/TrainingModel.js";
 
-export async function createActivityController(req, res) {
+export async function createTrainingController(req, res) {
   const data = req.body;
 
-  await new ActivityModal(data)
+  await new TrainingModel(data)
     .save()
     .then((responseCreate) => {
       if (responseCreate) {
-        return res.status(201).json({ message: "Activity created" });
+        return res.status(201).json({
+          idTraining: responseCreate._id.toString(),
+          message: "Activity created",
+        });
       } else {
         return res.json({ message: "Activity could not be created" });
       }
@@ -20,10 +23,10 @@ export async function createActivityController(req, res) {
     });
 }
 
-export async function readActivityListController(req, res) {
+export async function readTrainingActivityListController(req, res) {
   const { idUser } = req.params;
 
-  await ActivityModal.find({ idUser }, "_id title items")
+  await TrainingModel.find({ idUser }, "_id title items")
     .then((responseFind) => {
       if (responseFind) {
         let activitiesList = [];
@@ -47,10 +50,10 @@ export async function readActivityListController(req, res) {
     });
 }
 
-export async function readActivityByIdController(req, res) {
+export async function readTrainingByIdController(req, res) {
   const { idActivity } = req.params;
 
-  await ActivityModal.findById(idActivity)
+  await TrainingModel.findById(idActivity)
     .then((responseFind) => {
       if (responseFind) {
         const activity = {
@@ -59,6 +62,7 @@ export async function readActivityByIdController(req, res) {
           title: responseFind.title,
           owner: responseFind.idUser,
         };
+        console.log(activity);
         return res.json({ data: activity });
       } else {
         return;
@@ -72,7 +76,7 @@ export async function readActivityByIdController(req, res) {
 export async function updateTrainingController(req, res) {
   const { idTraining, newData } = req.body;
 
-  await ActivityModal.findByIdAndUpdate(idTraining, newData)
+  await TrainingModel.findByIdAndUpdate(idTraining, newData)
     .then((responseUpdate) => {
       if (responseUpdate) {
         return res.status(200).json({ message: "Training updated" });
@@ -86,10 +90,10 @@ export async function updateTrainingController(req, res) {
     });
 }
 
-export async function deleteActivityController(req, res) {
+export async function deleteTrainingController(req, res) {
   const { idTraining } = req.body;
 
-  await ActivityModal.findByIdAndDelete(idTraining)
+  await TrainingModel.findByIdAndDelete(idTraining)
     .then((responseDelete) => {
       if (responseDelete) {
         return res.status(200).json({ message: "Training deleted" });

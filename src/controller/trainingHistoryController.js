@@ -1,9 +1,9 @@
-import ActivityHistoryModel from "../model/ActivityHistoryModel.js";
+import TrainingHistoryModel from "../model/TrainingHistoryModel.js";
 
-export async function createActivityHistoryController(req, res) {
+export async function createTrainingHistoryController(req, res) {
   const { idActivity } = req.body;
 
-  await new ActivityHistoryModel({ idActivity })
+  await new TrainingHistoryModel({ idActivity })
     .save()
     .then((responseCreate) => {
       if (responseCreate) {
@@ -19,10 +19,10 @@ export async function createActivityHistoryController(req, res) {
     });
 }
 
-export async function readActivityHistoryByIdController(req, res) {
+export async function readTrainingHistoryByIdController(req, res) {
   const { idActivity } = req.params;
 
-  await ActivityHistoryModel.find({ idActivity })
+  await TrainingHistoryModel.find({ idActivity })
     .then((responseFind) => {
       if (responseFind && responseFind.length > 0) {
         const data = {
