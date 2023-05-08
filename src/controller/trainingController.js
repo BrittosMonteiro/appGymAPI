@@ -26,7 +26,7 @@ export async function createTrainingController(req, res) {
 export async function readTrainingActivityListController(req, res) {
   const { idUser } = req.params;
 
-  await TrainingModel.find({ idUser }, "_id title items")
+  await TrainingModel.find({ idUser }, "_id title items workoutDays")
     .then((responseFind) => {
       if (responseFind) {
         let activitiesList = [];
@@ -34,9 +34,9 @@ export async function readTrainingActivityListController(req, res) {
           const activity = {
             id: response._id.toString(),
             items: response.items,
+            owner: idUser,
             qty: response.items.length,
             title: response.title,
-            owner: idUser,
             workoutDays: response.workoutDays,
           };
           activitiesList.push(activity);
