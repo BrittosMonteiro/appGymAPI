@@ -30,6 +30,7 @@ app.use("/group", GROUP_ROUTE);
 
 function connection() {
   try {
+    mongoose.set("strictQuery", true);
     mongoose.connect(`${CONNECT}/${DATABASE}`);
   } catch (e) {
     console.log(e.message);
