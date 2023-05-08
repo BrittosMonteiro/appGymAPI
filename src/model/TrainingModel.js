@@ -5,6 +5,7 @@ const trainingSchema = new mongoose.Schema({
   items: { type: Array, required: true },
   title: { type: String, required: true },
   idUser: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
+  workoutDays: { type: Array, required: true, default: [] },
 });
 
 const TrainingModel = mongoose.model("training", trainingSchema);

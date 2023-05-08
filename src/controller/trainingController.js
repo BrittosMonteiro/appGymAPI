@@ -37,6 +37,7 @@ export async function readTrainingActivityListController(req, res) {
             qty: response.items.length,
             title: response.title,
             owner: idUser,
+            workoutDays: response.workoutDays,
           };
           activitiesList.push(activity);
         }
@@ -61,8 +62,8 @@ export async function readTrainingByIdController(req, res) {
           qty: responseFind.items.length,
           title: responseFind.title,
           owner: responseFind.idUser,
+          workoutDays: responseFind.workoutDays,
         };
-        console.log(activity);
         return res.json({ data: activity });
       } else {
         return;
