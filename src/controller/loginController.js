@@ -49,45 +49,47 @@ export async function createAccountController(req, res) {
 export async function loginController(req, res) {
   const { username, password } = req.body;
 
-  try {
-    const user = await UserModel.findOne({ username }).populate({
-      path: "idGym",
+  await UserModel.findOne({ username })
+    .populate({ path: "idGym" })
+    .then((responseFind) => {
+      if (responseFind) {
+        const comparePassword = bcryptjs.compareSync(
+          password,
+          responseFind.password
+        );
+        if (!comparePassword) {
+          return res.status(400).send("Usuário/senha incorretos");
+        }
+
+        const data = {
+          id: responseFind._id.toString(),
+          idGym: responseFind.idGym && responseFind.idGym._id.toString(),
+          displayName: responseFind.shortName || responseFind.name.split(" ")[0],
+          email: responseFind.email,
+          username: responseFind.username,
+          userLevel: responseFind.userLevel,
+          hasPlan: responseFind.idGym && true,
+          planValidDate: responseFind.planValidDate && responseFind.planValidDate,
+        };
+        const token = jwt.sign(data, process.env.TOKEN_SECRET);
+
+        res.header("authorization-token", token);
+        res.status(200);
+        res.json({
+          id: data.id,
+          displayName: data.displayName,
+          hasPlan: data.idGym && true,
+          idGym: data.idGym,
+          planValidDate: data.planValidDate,
+          token,
+          userLevel: data.userLevel,
+        });
+        return res;
+      } else {
+        return res.json({ message: "User could not be found" });
+      }
+    })
+    .catch((err) => {
+      return res.json({ message: "Service unavailable" });
     });
-    if (!user) {
-      return res.status(400).send("Usuário/senha incorretos");
-    }
-
-    const comparePass = bcryptjs.compareSync(password, user.password);
-    if (!comparePass) {
-      return res.status(400).send("Usuário/senha incorretos");
-    }
-
-    const response = {
-      id: user._id.toString(),
-      idGym: user.idGym && user.idGym._id.toString(),
-      displayName: user.shortName || user.name.split(" ")[0],
-      email: user.email,
-      username: user.username,
-      userLevel: user.userLevel,
-      hasPlan: user.idGym && true,
-      planValidDate: user.planValidDate && user.planValidDate,
-    };
-
-    const token = jwt.sign(response, process.env.TOKEN_SECRET);
-
-    res.header("authorization-token", token);
-    res.status(200);
-    res.json({
-      id: response.id,
-      displayName: response.displayName,
-      hasPlan: response.idGym && true,
-      idGym: response.idGym,
-      planValidDate: response.planValidDate,
-      token,
-      userLevel: response.userLevel,
-    });
-    return res;
-  } catch (err) {
-    return res.status(400).json({ message: err.message });
-  }
 }
