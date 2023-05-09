@@ -48,7 +48,6 @@ export async function createAccountController(req, res) {
 
 export async function loginController(req, res) {
   const { username, password } = req.body;
-  console.log(username, password);
 
   try {
     const user = await UserModel.findOne({ username }).populate({
