@@ -8,6 +8,7 @@ import {
   setPlanToUserController,
   updatePasswordController,
   updateUserService,
+  deleteUserAccountController,
 } from "../controller/userController.js";
 const UserRoute = express.Router();
 
@@ -19,5 +20,6 @@ UserRoute.put("/setPlan", setPlanToUserController);
 UserRoute.put("/removePlan", removePlantFromUserController);
 UserRoute.put("/updatePassword", updatePasswordController);
 UserRoute.put("/", updateUserService);
+UserRoute.delete("/", deleteUserAccountController);
 
 export default UserRoute;

@@ -179,3 +179,19 @@ export async function updateUserService(req, res) {
       return res.status(200).json({ message: "Service unavailable" });
     });
 }
+
+export async function deleteUserAccountController(req, res) {
+  const { idUser } = req.body;
+
+  await UserModel.findByIdAndDelete(idUser)
+    .then((responseDelete) => {
+      if (responseDelete) {
+        return res.status(200).json({ message: "User account deleted" });
+      } else {
+        return res.json({ message: "User account could not be deleted" });
+      }
+    })
+    .catch((err) => {
+      return res.json({ message: "Service unavailable" });
+    });
+}
