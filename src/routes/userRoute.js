@@ -9,6 +9,7 @@ import {
   updatePasswordController,
   updateUserService,
   deleteUserAccountController,
+  countGymsService,
 } from "../controller/userController.js";
 const UserRoute = express.Router();
 
@@ -21,5 +22,6 @@ UserRoute.put("/removePlan", removePlantFromUserController);
 UserRoute.put("/updatePassword", updatePasswordController);
 UserRoute.put("/", updateUserService);
 UserRoute.delete("/", deleteUserAccountController);
+UserRoute.get("/countGyms", countGymsService);
 
 export default UserRoute;

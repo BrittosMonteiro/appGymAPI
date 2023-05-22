@@ -41,6 +41,20 @@ export async function readActivityList(req, res) {
     });
 }
 
+export async function countExercises(req, res) {
+  await ActivityModel.countDocuments({ isDeleted: false })
+    .then((responseCount) => {
+      if (responseCount) {
+        const count = responseCount;
+        return res.json({ count });
+      }
+      return res.json({ count: 0 });
+    })
+    .catch(() => {
+      return res.json({ count: 0, message: "Service unavailable" });
+    });
+}
+
 export async function readActivityById(req, res) {
   const { idActivity } = req.params;
 
@@ -78,6 +92,22 @@ export async function updateActivity(req, res) {
       }
     })
     .catch((err) => {
+      return res.json({ message: "Service unavailable" });
+    });
+}
+
+export async function deleteExercise(req, res) {
+  const { idItem } = req.body;
+
+  await ActivityModel.findByIdAndUpdate(idItem, { $set: { isDeleted: true } })
+    .then((responseDelete) => {
+      if (responseDelete) {
+        return res.status(200).json({ message: "Exercise deleted" });
+      } else {
+        return res.json({ message: "Exercise could not be deleted" });
+      }
+    })
+    .catch(() => {
       return res.json({ message: "Service unavailable" });
     });
 }

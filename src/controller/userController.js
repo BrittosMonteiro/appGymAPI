@@ -195,3 +195,18 @@ export async function deleteUserAccountController(req, res) {
       return res.json({ message: "Service unavailable" });
     });
 }
+
+export async function countGymsService(req, res) {
+  await UserModel.countDocuments({ userLevel: 1 })
+    .then((responseCount) => {
+      if (responseCount) {
+        const count = responseCount;
+        return res.json({ count });
+      } else {
+        return res.json({ count: 0 });
+      }
+    })
+    .catch(() => {
+      return res.json({ count: 0, message: "Service unavailable" });
+    });
+}

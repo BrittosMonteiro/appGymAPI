@@ -54,3 +54,33 @@ export async function updateGroupStatusController(req, res) {
       return res.json({ message: "Service unavailable" });
     });
 }
+
+export async function countCategoriesService(req, res) {
+  await GroupModel.countDocuments({ isDeleted: false })
+    .then((responseCount) => {
+      if (responseCount) {
+        const count = responseCount;
+        return res.json({ count });
+      }
+      return res.json({ count: 0 });
+    })
+    .catch(() => {
+      return res.json({ count: 0, message: "Service unavailable" });
+    });
+}
+
+export async function deleteCategory(req, res) {
+  const { idCategory } = req.body;
+
+  await GroupModel.findByIdAndUpdate(idCategory, { isDeleted: true })
+    .then((responseDelete) => {
+      if (responseDelete) {
+        return res.status(200).json({ message: "Category deleted" });
+      } else {
+        return res.json({ message: "Category could not be deleted" });
+      }
+    })
+    .catch(() => {
+      return res.json({ message: "Service unavailable" });
+    });
+}
