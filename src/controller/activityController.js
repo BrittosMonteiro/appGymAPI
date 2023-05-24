@@ -80,7 +80,7 @@ export async function readActivityById(req, res) {
     });
 }
 
-export async function updateActivity(req, res) {
+export async function updateExerciseStatus(req, res) {
   const { idActivity, isDeleted } = req.body;
 
   await ActivityModel.findByIdAndUpdate(idActivity, { isDeleted })
@@ -89,6 +89,22 @@ export async function updateActivity(req, res) {
         return res.status(200).json({ message: "Activity updated" });
       } else {
         return res.json({ message: "Activity could not be updated" });
+      }
+    })
+    .catch((err) => {
+      return res.json({ message: "Service unavailable" });
+    });
+}
+
+export async function updateExercise(req, res) {
+  const { idExercise, idGroup } = req.body;
+
+  await ActivityModel.findByIdAndUpdate(idExercise, { idGroup })
+    .then((responseUpdate) => {
+      if (responseUpdate) {
+        return res.status(200).json({ message: "Exercise updated" });
+      } else {
+        return res.json({ message: "Exercise could not be updated" });
       }
     })
     .catch((err) => {

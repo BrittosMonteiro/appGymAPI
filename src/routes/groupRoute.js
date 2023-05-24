@@ -1,17 +1,19 @@
 import express from "express";
 import {
-  countCategoriesService,
   createGroupController,
   readGroupListController,
-  updateGroupStatusController,
-  deleteCategory,
+  updateCategoryStatusController,
+  countCategoriesController,
+  updateCategoryController,
+  deleteCategoryController,
 } from "../controller/groupController.js";
 const GROUP_ROUTE = express.Router();
 
 GROUP_ROUTE.post("/", createGroupController);
 GROUP_ROUTE.get("/", readGroupListController);
-GROUP_ROUTE.put("/", updateGroupStatusController);
-GROUP_ROUTE.get("/countCategories", countCategoriesService);
-GROUP_ROUTE.delete("/", deleteCategory);
+GROUP_ROUTE.put("/updateStatus", updateCategoryStatusController);
+GROUP_ROUTE.put("/", updateCategoryController);
+GROUP_ROUTE.get("/countCategories", countCategoriesController);
+GROUP_ROUTE.delete("/", deleteCategoryController);
 
 export default GROUP_ROUTE;

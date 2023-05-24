@@ -39,7 +39,7 @@ export async function readGroupListController(req, res) {
     });
 }
 
-export async function updateGroupStatusController(req, res) {
+export async function updateCategoryStatusController(req, res) {
   const { idGroup, isDeleted } = req.body;
 
   await GroupModel.findByIdAndUpdate(idGroup, { isDeleted })
@@ -55,7 +55,23 @@ export async function updateGroupStatusController(req, res) {
     });
 }
 
-export async function countCategoriesService(req, res) {
+export async function updateCategoryController(req, res) {
+  const { title, idCategory } = req.body;
+
+  await GroupModel.findByIdAndUpdate(idCategory, { title })
+    .then((responseUpdate) => {
+      if (responseUpdate) {
+        return res.status(200).json({ message: "Category updated" });
+      } else {
+        return res.json({ message: "Category could not be updated" });
+      }
+    })
+    .catch(() => {
+      return res.json({ message: "Service unavailable" });
+    });
+}
+
+export async function countCategoriesController(req, res) {
   await GroupModel.countDocuments({ isDeleted: false })
     .then((responseCount) => {
       if (responseCount) {
@@ -69,7 +85,7 @@ export async function countCategoriesService(req, res) {
     });
 }
 
-export async function deleteCategory(req, res) {
+export async function deleteCategoryController(req, res) {
   const { idCategory } = req.body;
 
   await GroupModel.findByIdAndUpdate(idCategory, { isDeleted: true })
