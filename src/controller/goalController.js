@@ -59,7 +59,7 @@ export async function readGoalResumeController(req, res) {
 
   const resume = {
     yearGoal: 0,
-    weekGoal: getTotalWeeksInYear(),
+    weekGoal: 0,
     workoutsCompleted: 0,
   };
 
@@ -72,6 +72,10 @@ export async function readGoalResumeController(req, res) {
   ).sort({ createdAt: "desc" });
 
   yearGoal.length > 0 && (resume.yearGoal = yearGoal[0].value);
+  resume.weekGoal =
+    resume.yearGoal > 0
+      ? Math.floor(resume.yearGoal / getTotalWeeksInYear())
+      : 0;
 
   await TrainingHistoryModel.find({ idUser })
     .then((responseFind) => {
