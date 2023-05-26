@@ -1,9 +1,9 @@
 import TrainingHistoryModel from "../model/TrainingHistoryModel.js";
 
 export async function createTrainingHistoryController(req, res) {
-  const { idActivity } = req.body;
+  const data = req.body;
 
-  await new TrainingHistoryModel({ idActivity })
+  await new TrainingHistoryModel(data)
     .save()
     .then((responseCreate) => {
       if (responseCreate) {

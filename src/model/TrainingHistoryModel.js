@@ -6,6 +6,7 @@ const trainingHistorySchema = new mongoose.Schema({
     ref: "activity",
     required: true,
   },
+  idUser: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
   createdAt: { type: Date, required: true, default: Date.now() },
 });
 

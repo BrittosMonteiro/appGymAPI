@@ -17,6 +17,7 @@ import TrainingHistoryRoute from "./src/routes/trainingHistoryRoute.js";
 import UserRoute from "./src/routes/userRoute.js";
 import ActivityRoute from "./src/routes/activityRoute.js";
 import GROUP_ROUTE from "./src/routes/groupRoute.js";
+import GOAL_ROUTE from "./src/routes/goalRoute.js";
 
 app.use(express.json());
 app.use("/instructor", InstructorRoute);
@@ -27,6 +28,7 @@ app.use("/trainingHistory", TrainingHistoryRoute);
 app.use("/user", UserRoute);
 app.use("/activity", ActivityRoute);
 app.use("/group", GROUP_ROUTE);
+app.use("/goal", GOAL_ROUTE);
 
 function connection() {
   try {
