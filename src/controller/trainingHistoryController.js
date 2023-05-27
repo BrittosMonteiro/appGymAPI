@@ -3,7 +3,7 @@ import TrainingHistoryModel from "../model/TrainingHistoryModel.js";
 export async function createTrainingHistoryController(req, res) {
   const data = req.body;
 
-  await new TrainingHistoryModel(data)
+  await new TrainingHistoryModel({ ...data, createdAt: Date.now() })
     .save()
     .then((responseCreate) => {
       if (responseCreate) {
