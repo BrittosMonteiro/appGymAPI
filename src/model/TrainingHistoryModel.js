@@ -7,7 +7,8 @@ const trainingHistorySchema = new mongoose.Schema({
     required: true,
   },
   idUser: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
-  createdAt: { type: Date, required: true, default: Date.now() },
+  weekNumber: { type: Number, required: true },
+  createdAt: { type: Date, required: true },
 });
 
 const TrainingHistoryModel = mongoose.model(
