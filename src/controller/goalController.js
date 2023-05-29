@@ -1,5 +1,5 @@
 import GoalModel from "../model/GoalModel.js";
-import TrainingHistoryModel from "../model/TrainingHistoryModel.js";
+import WorkoutHistoryModel from "../model/WorkoutHistoryModel.js";
 import { getTotalWeeksInYear, getWeekNumber } from "../utils/weekControl.js";
 
 export async function createGoalController(req, res) {
@@ -69,18 +69,18 @@ export async function readGoalResumeController(req, res) {
     workoutsCompletedThisWeek: 0,
   };
 
-  const yearGoal = await GoalModel.find(
+  const workoutWeekGoal = await GoalModel.find(
     { idUser, year: CURRENT_YEAR },
     "value"
   ).sort({ createdAt: "desc" });
 
-  yearGoal.length > 0 && (resume.yearGoal = yearGoal[0].value);
-  resume.weekGoal =
-    resume.yearGoal > 0
-      ? Math.floor(resume.yearGoal / NUMBER_WEEKS_IN_YEAR)
+  workoutWeekGoal.length > 0 && (resume.weekGoal = workoutWeekGoal[0].value);
+  resume.yearGoal =
+    resume.weekGoal > 0
+      ? Math.floor(resume.weekGoal * NUMBER_WEEKS_IN_YEAR)
       : 0;
 
-  await TrainingHistoryModel.find({ idUser })
+  await WorkoutHistoryModel.find({ idUser })
     .then((responseFind) => {
       if (responseFind) {
         let workoutsThisWeek = responseFind.filter(
@@ -94,7 +94,6 @@ export async function readGoalResumeController(req, res) {
       }
     })
     .catch((implementar) => {
-      console.log(implementar);
       return res.json({ message: "Service unavailable" });
     });
 }
@@ -117,12 +116,12 @@ export async function updateGoalController(req, res) {
 }
 
 export async function deleteGoalController(req, res) {
-  const { idGoal } = req.body;
+  const { idWorkoutGoal } = req.body;
 
-  await GoalModel.findByIdAndDelete(idGoal)
+  await GoalModel.findByIdAndDelete(idWorkoutGoal)
     .then((responseDelete) => {
       if (responseDelete) {
-        return res.status(201).json({ message: "Goal deleted" });
+        return res.status(200).json({ message: "Goal deleted" });
       } else {
         return res.json({ message: "Goal could not be deleted" });
       }
