@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema({
   shortName: { type: String }, //company
   cnpj: { type: String, required: false }, //company
   cref: { type: String, required: false }, //instructors
-  cpf: { type: String, required: false }, //general users
   idGym: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
   birthdate: { type: Date, required: false },
   idPlan: { type: mongoose.Schema.Types.ObjectId, ref: "plan" },

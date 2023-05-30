@@ -27,8 +27,8 @@ export async function readActivityList(req, res) {
         for (let response of responseFind) {
           activityList.push({
             id: response._id.toString(),
-            title: response.title,
-            group: response.idGroup.title,
+            title: response.title.toUpperCase(),
+            group: response.idGroup.title.toUpperCase(),
           });
         }
         return res.status(200).json({ data: activityList });
@@ -68,7 +68,7 @@ export async function readActivityById(req, res) {
         return res.status(200).json({
           data: {
             id: responseFind._id.toString(),
-            title: responseFind.title,
+            title: responseFind.title.toUpperCase(),
           },
         });
       } else {

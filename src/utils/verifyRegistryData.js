@@ -24,8 +24,6 @@ export function verifyCnpjOrCrefOrCpf(data) {
       return verifyData({ cnpj: data.cnpj });
     case 2:
       return verifyData({ cref: data.cref });
-    case 3:
-      return verifyData({ cpf: data.cpf });
     default:
       return;
   }
