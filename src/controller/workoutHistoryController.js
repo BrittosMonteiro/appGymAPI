@@ -3,11 +3,11 @@ import WorkoutHistoryModel from "../model/WorkoutHistoryModel.js";
 export async function createWorkoutHistoryController(req, res) {
   const data = req.body;
 
-  await new WorkoutHistoryModel({ ...data, createdAt: Date.now() })
+  await new WorkoutHistoryModel(data)
     .save()
     .then((responseCreate) => {
       if (responseCreate) {
-        return res.json({ message: "Activity history created" });
+        return res.status(201).json({ message: "Activity history created" });
       } else {
         return res.json({ message: "Activity history could not be created" });
       }
@@ -46,22 +46,24 @@ export async function readWorkoutHistoryByIdController(req, res) {
 export async function readWorkoutHistoryListByIdUserController(req, res) {
   const { idUser } = req.params;
 
-  await WorkoutHistoryModel.find({ idUser }, "_id idActivity createdAt")
+  await WorkoutHistoryModel.find({ idUser }, "_id idActivity createdAt title")
     .sort({ createdAt: "desc" })
     .populate({ path: "idActivity", select: "_id title" })
     .then((responseFind) => {
       if (responseFind.length > 0) {
         let workoutHistoryList = [];
         for (let response of responseFind) {
-          if (response.idActivity) {
-            const workoutHistoryItem = {
-              id: response._id.toString(),
-              date: new Date(response.createdAt).toLocaleDateString(),
-              idWorkout: response.idActivity._id.toString(),
-              title: response.idActivity.title,
-            };
-            workoutHistoryList.push(workoutHistoryItem);
-          }
+          const workoutHistoryItem = {
+            id: response._id.toString(),
+            date: response.createdAt,
+            idWorkout: response.idActivity
+              ? response.idActivity._id.toString()
+              : null,
+            title: response.idActivity
+              ? response.idActivity.title
+              : response.title,
+          };
+          workoutHistoryList.push(workoutHistoryItem);
         }
         return res.status(200).json({ data: workoutHistoryList });
       } else {

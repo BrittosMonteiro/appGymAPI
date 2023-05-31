@@ -7,6 +7,7 @@ const workoutHistorySchema = new mongoose.Schema({
     required: true,
   },
   idUser: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+  title: { type: String, required: true },
   weekNumber: { type: Number, required: true },
   createdAt: { type: Date, required: true },
 });
