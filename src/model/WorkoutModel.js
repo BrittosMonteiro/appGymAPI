@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const trainingSchema = new mongoose.Schema({
+const workoutSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now(), required: true },
   items: { type: Array, required: true },
   title: { type: String, required: true },
@@ -8,6 +8,6 @@ const trainingSchema = new mongoose.Schema({
   workoutDays: { type: Array, required: true, default: [] },
 });
 
-const TrainingModel = mongoose.model("training", trainingSchema);
+const WorkoutModel = mongoose.model("workout", workoutSchema);
 
-export default TrainingModel;
+export default WorkoutModel;

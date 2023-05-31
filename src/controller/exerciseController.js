@@ -1,9 +1,9 @@
-import ActivityModel from "../model/ActivityModel.js";
+import ExerciseModel from "../model/ExerciseModel.js";
 
-export async function createActivity(req, res) {
+export async function createExercise(req, res) {
   const data = req.body;
 
-  await new ActivityModel(data)
+  await new ExerciseModel(data)
     .save()
     .then((responseCreate) => {
       if (responseCreate) {
@@ -17,8 +17,8 @@ export async function createActivity(req, res) {
     });
 }
 
-export async function readActivityList(req, res) {
-  await ActivityModel.find({ isDeleted: false })
+export async function readExerciseList(req, res) {
+  await ExerciseModel.find({ isDeleted: false })
     .populate({ path: "idGroup" })
     .sort({ title: "asc" })
     .then((responseFind) => {
@@ -42,7 +42,7 @@ export async function readActivityList(req, res) {
 }
 
 export async function countExercises(req, res) {
-  await ActivityModel.countDocuments({ isDeleted: false })
+  await ExerciseModel.countDocuments({ isDeleted: false })
     .then((responseCount) => {
       if (responseCount) {
         const count = responseCount;
@@ -55,10 +55,10 @@ export async function countExercises(req, res) {
     });
 }
 
-export async function readActivityById(req, res) {
+export async function readExerciseById(req, res) {
   const { idActivity } = req.params;
 
-  await ActivityModel.findById(idActivity)
+  await ExerciseModel.findById(idActivity)
     .where("isDeleted")
     .equals(false)
     .populate({ path: "idGroup" })
@@ -83,7 +83,7 @@ export async function readActivityById(req, res) {
 export async function updateExerciseStatus(req, res) {
   const { idActivity, isDeleted } = req.body;
 
-  await ActivityModel.findByIdAndUpdate(idActivity, { isDeleted })
+  await ExerciseModel.findByIdAndUpdate(idActivity, { isDeleted })
     .then((responseUpdate) => {
       if (responseUpdate) {
         return res.status(200).json({ message: "Activity updated" });
@@ -99,7 +99,7 @@ export async function updateExerciseStatus(req, res) {
 export async function updateExercise(req, res) {
   const { idExercise, idGroup } = req.body;
 
-  await ActivityModel.findByIdAndUpdate(idExercise, { idGroup })
+  await ExerciseModel.findByIdAndUpdate(idExercise, { idGroup })
     .then((responseUpdate) => {
       if (responseUpdate) {
         return res.status(200).json({ message: "Exercise updated" });
@@ -115,7 +115,7 @@ export async function updateExercise(req, res) {
 export async function deleteExercise(req, res) {
   const { idItem } = req.body;
 
-  await ActivityModel.findByIdAndUpdate(idItem, { $set: { isDeleted: true } })
+  await ExerciseModel.findByIdAndUpdate(idItem, { $set: { isDeleted: true } })
     .then((responseDelete) => {
       if (responseDelete) {
         return res.status(200).json({ message: "Exercise deleted" });

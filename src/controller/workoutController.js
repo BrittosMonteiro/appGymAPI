@@ -1,9 +1,9 @@
-import TrainingModel from "../model/TrainingModel.js";
+import WorkoutModel from "../model/WorkoutModel.js";
 
-export async function createTrainingController(req, res) {
+export async function createWorkoutController(req, res) {
   const data = req.body;
 
-  await new TrainingModel(data)
+  await new WorkoutModel(data)
     .save()
     .then((responseCreate) => {
       if (responseCreate) {
@@ -23,10 +23,10 @@ export async function createTrainingController(req, res) {
     });
 }
 
-export async function readTrainingActivityListController(req, res) {
+export async function readWorkoutExerciseListController(req, res) {
   const { idUser } = req.params;
 
-  await TrainingModel.find({ idUser }, "_id title items workoutDays")
+  await WorkoutModel.find({ idUser }, "_id title items workoutDays")
     .then((responseFind) => {
       if (responseFind) {
         let activitiesList = [];
@@ -51,10 +51,10 @@ export async function readTrainingActivityListController(req, res) {
     });
 }
 
-export async function readTrainingByIdController(req, res) {
+export async function readWorkoutByIdController(req, res) {
   const { idActivity } = req.params;
 
-  await TrainingModel.findById(idActivity)
+  await WorkoutModel.findById(idActivity)
     .then((responseFind) => {
       if (responseFind) {
         const activity = {
@@ -74,10 +74,10 @@ export async function readTrainingByIdController(req, res) {
     });
 }
 
-export async function updateTrainingController(req, res) {
+export async function updateWorkoutController(req, res) {
   const { idTraining, newData } = req.body;
 
-  await TrainingModel.findByIdAndUpdate(idTraining, newData)
+  await WorkoutModel.findByIdAndUpdate(idTraining, newData)
     .then((responseUpdate) => {
       if (responseUpdate) {
         return res.status(200).json({ message: "Training updated" });
@@ -91,10 +91,10 @@ export async function updateTrainingController(req, res) {
     });
 }
 
-export async function deleteTrainingController(req, res) {
+export async function deleteWorkoutController(req, res) {
   const { idTraining } = req.body;
 
-  await TrainingModel.findByIdAndDelete(idTraining)
+  await WorkoutModel.findByIdAndDelete(idTraining)
     .then((responseDelete) => {
       if (responseDelete) {
         return res.status(200).json({ message: "Training deleted" });

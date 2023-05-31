@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const trainingHistorySchema = new mongoose.Schema({
   idActivity: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "training",
+    ref: "workout",
     required: true,
   },
   idUser: { type: mongoose.Schema.Types.ObjectId, ref: "user" },

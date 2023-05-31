@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const activitySchema = new mongoose.Schema({
+const exerciseSchema = new mongoose.Schema({
   title: { type: String, required: true },
   idGroup: {
     type: mongoose.Schema.Types.ObjectId,
@@ -9,6 +9,6 @@ const activitySchema = new mongoose.Schema({
   isDeleted: { type: Boolean, required: true, default: false },
 });
 
-const ActivityModel = mongoose.model("activity", activitySchema);
+const ExerciseModel = mongoose.model("exercise", exerciseSchema);
 
-export default ActivityModel;
+export default ExerciseModel;
