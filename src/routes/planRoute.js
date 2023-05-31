@@ -6,12 +6,12 @@ import {
   readPlanListController,
   updatePlanController,
 } from "../controller/planController.js";
-const PlanRoute = express.Router();
+const PLAN_ROUTE = express.Router();
 
-PlanRoute.post("/", createPlanController);
-PlanRoute.get("/list/:idGym", readPlanListController);
-PlanRoute.get("/byId/:idPlan", readPlanByIdController);
-PlanRoute.put("/", updatePlanController);
-PlanRoute.delete("/", deletePlanController);
+PLAN_ROUTE.post("/", createPlanController);
+PLAN_ROUTE.get("/list/:idGym", readPlanListController);
+PLAN_ROUTE.get("/byId/:idPlan", readPlanByIdController);
+PLAN_ROUTE.put("/", updatePlanController);
+PLAN_ROUTE.delete("/", deletePlanController);
 
-export default PlanRoute;
+export default PLAN_ROUTE;

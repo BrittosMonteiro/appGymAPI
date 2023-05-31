@@ -1,12 +1,12 @@
 import express from "express";
-const LoginRoute = express.Router();
+const LOGIN_ROUTE = express.Router();
 
 import {
   createAccountController,
   loginController,
 } from "../controller/loginController.js";
 
-LoginRoute.post("/login", loginController);
-LoginRoute.post("/createAccount", createAccountController);
+LOGIN_ROUTE.post("/login", loginController);
+LOGIN_ROUTE.post("/createAccount", createAccountController);
 
-export default LoginRoute;
+export default LOGIN_ROUTE;

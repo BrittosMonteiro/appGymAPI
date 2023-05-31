@@ -13,22 +13,22 @@ import WORKOUT_ROUTE from "./src/routes/workoutRoute.js";
 import EXERCISE_ROUTE from "./src/routes/exerciseRoute.js";
 import GROUP_ROUTE from "./src/routes/groupRoute.js";
 import GOAL_ROUTE from "./src/routes/goalRoute.js";
-import InstructorRoute from "./src/routes/instructorRoute.js";
-import LoginRoute from "./src/routes/loginRoute.js";
-import PlanRoute from "./src/routes/planRoute.js";
-import WorkoutHistoryRoute from "./src/routes/workoutHistoryRoute.js";
-import UserRoute from "./src/routes/userRoute.js";
+import WORKOUT_HISTORY_ROUTE from "./src/routes/workoutHistoryRoute.js";
+import INSTRUCTOR_ROUTE from "./src/routes/instructorRoute.js";
+import LOGIN_ROUTE from "./src/routes/loginRoute.js";
+import PLAN_ROUTE from "./src/routes/planRoute.js";
+import USER_ROUTE from "./src/routes/userRoute.js";
 
 app.use(express.json());
 app.use("/workout", WORKOUT_ROUTE);
+app.use("/workoutHistory", WORKOUT_HISTORY_ROUTE);
 app.use("/exercise", EXERCISE_ROUTE);
 app.use("/group", GROUP_ROUTE);
 app.use("/goal", GOAL_ROUTE);
-app.use("/instructor", InstructorRoute);
-app.use("/login", LoginRoute);
-app.use("/plan", PlanRoute);
-app.use("/workoutHistory", WorkoutHistoryRoute);
-app.use("/user", UserRoute);
+app.use("/instructor", INSTRUCTOR_ROUTE);
+app.use("/login", LOGIN_ROUTE);
+app.use("/plan", PLAN_ROUTE);
+app.use("/user", USER_ROUTE);
 
 function connection() {
   try {

@@ -6,12 +6,12 @@ import {
   updateInstructorController,
   deleteInstructorController,
 } from "../controller/instructorController.js";
-const InstructorRoute = express.Router();
+const INSTRUCTOR_ROUTE = express.Router();
 
-InstructorRoute.post("/create", createInstructorController);
-InstructorRoute.get("/list/:idGym", readInstructorListController);
-InstructorRoute.get("/byId/:idInstructor", readInstructorByIdController);
-InstructorRoute.put("/update", updateInstructorController);
-InstructorRoute.delete("/delete", deleteInstructorController);
+INSTRUCTOR_ROUTE.post("/create", createInstructorController);
+INSTRUCTOR_ROUTE.get("/list/:idGym", readInstructorListController);
+INSTRUCTOR_ROUTE.get("/byId/:idInstructor", readInstructorByIdController);
+INSTRUCTOR_ROUTE.put("/update", updateInstructorController);
+INSTRUCTOR_ROUTE.delete("/delete", deleteInstructorController);
 
-export default InstructorRoute;
+export default INSTRUCTOR_ROUTE;
