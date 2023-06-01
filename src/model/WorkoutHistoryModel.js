@@ -10,6 +10,7 @@ const workoutHistorySchema = new mongoose.Schema({
   title: { type: String, required: true },
   weekNumber: { type: Number, required: true },
   createdAt: { type: Date, required: true },
+  totalTime: { type: String },
 });
 
 const WorkoutHistoryModel = mongoose.model(

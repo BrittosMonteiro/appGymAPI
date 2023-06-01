@@ -46,7 +46,10 @@ export async function readWorkoutHistoryByIdController(req, res) {
 export async function readWorkoutHistoryListByIdUserController(req, res) {
   const { idUser } = req.params;
 
-  await WorkoutHistoryModel.find({ idUser }, "_id idActivity createdAt title")
+  await WorkoutHistoryModel.find(
+    { idUser },
+    "_id idActivity createdAt title totalTime"
+  )
     .sort({ createdAt: "desc" })
     .populate({ path: "idActivity", select: "_id title" })
     .then((responseFind) => {
@@ -62,6 +65,7 @@ export async function readWorkoutHistoryListByIdUserController(req, res) {
             title: response.idActivity
               ? response.idActivity.title
               : response.title,
+            totalTime: response.totalTime ? response.totalTime : null,
           };
           workoutHistoryList.push(workoutHistoryItem);
         }
