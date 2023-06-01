@@ -53,7 +53,7 @@ export async function readWorkoutHistoryListByIdUserController(req, res) {
     .sort({ createdAt: "desc" })
     .populate({ path: "idActivity", select: "_id title" })
     .then((responseFind) => {
-      if (responseFind.length > 0) {
+      if (responseFind) {
         let workoutHistoryList = [];
         for (let response of responseFind) {
           const workoutHistoryItem = {
